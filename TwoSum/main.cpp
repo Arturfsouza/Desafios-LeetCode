@@ -1,20 +1,21 @@
 #include <iostream>
 #include <vector>
+#include <map>
 
 class Solution{
     public:
         std::vector<int> twoSum(std::vector<int>& nums, int target){
             int soma = 0;
             std::vector<int> resultado;
+            std::map<int,int> auxiliar;
             for(int i = 0; i<nums.size();i++){
                 soma = target - nums[i];
-                for (int j=0; j<nums.size();j++){
-                    if(nums[j] == soma && i!=j){
-                        resultado.push_back(i);
-                        resultado.push_back(j);
-                        return resultado;
-                    }
+                if(auxiliar.find(soma)!=auxiliar.end()){
+                    resultado.push_back(i);
+                    resultado.push_back(auxiliar.find(soma)->second);
+                    return resultado;
                 }
+                auxiliar[nums[i]] = i;
             }
             return resultado;
         }
